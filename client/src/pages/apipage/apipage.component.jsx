@@ -3,7 +3,7 @@ import React from 'react';
 const APIPage = () => {
   return ( 
     <div className="apipage">
-      Hello API
+      API Page
     </div>
   );
 }
