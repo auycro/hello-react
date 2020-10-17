@@ -1,6 +1,6 @@
 import React from 'react'
 import './signup.styles.scss';
-import Container from '@material-ui/core/Container';
+import {Button, Box} from '@material-ui/core';
 
 class SignUp extends React.Component {
   state = {
@@ -27,7 +27,8 @@ class SignUp extends React.Component {
 
   render() { 
     return (
-      <Container className="signup" fixed>
+      <Box className="signup" borderColor="primary.main" border={1}>
+        Sign Up
         <form onSubmit={this.handleSubmit}>
           <label>Display Name:&nbsp;</label>
           <input name="displayName" type="text" required={true} value={this.state.displayName} onChange={this.handleChange} /> <br/>
@@ -37,9 +38,15 @@ class SignUp extends React.Component {
           <input name="password" type="password" required={true} value={this.state.password} onChange={this.handleChange}/> <br/>
           <label>Confirm Password:&nbsp;</label>
           <input name="confirmPassword" type="password" required={true} value={this.state.confirmPassword} onChange={this.handleChange}/> <br/>
-          <input type="submit" value="Sign Up"/>
+          <Button
+            variant="contained" 
+            color="primary" 
+            style={{textTransform: 'none'}} 
+            type="submit" >
+            Sign In
+          </Button>
         </form>
-      </Container>
+      </Box>
     );
   }
 }
