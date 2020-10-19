@@ -14,4 +14,13 @@ npm install
 
 yarn add react-router-dom
 yarn add firebase
+
+yarn add react-loading-overlay
+```
+
+made it access in lan
+
+```
+package.json
+    //"start": "HOST=0.0.0.0 react-scripts start",
 ```

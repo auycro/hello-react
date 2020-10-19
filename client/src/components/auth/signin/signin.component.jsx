@@ -1,7 +1,9 @@
 import React from 'react';
 import './signin.styles.scss';
-import {signInWithGoogle} from '../../../utils/firebase.util';
+//import {signInWithGoogle} from '../../../utils/firebase.util';
 import {Button, Box} from '@material-ui/core';
+import firebase from 'firebase';
+import {withRouter} from 'react-router-dom';
 
 class SignIn extends React.Component {
   state = {
@@ -14,12 +16,19 @@ class SignIn extends React.Component {
     this.setState({[name]:value});
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.setState({
-      email:'',
-      password:''
-    });
+    const {email, password} = this.state;
+    try{
+      await firebase.auth().signInWithEmailAndPassword(email,password);
+      this.setState({
+        email:'',
+        password:''
+      });
+      this.props.history.push("/main");
+    }catch(error){
+      alert(error.message);
+    }
   }
 
   render() { 
@@ -31,7 +40,6 @@ class SignIn extends React.Component {
           <input name="email" type="email" required={true} value={this.state.email} onChange={this.handleChange} /> <br/>
           <label>Password:&nbsp;</label>
           <input name="password" type="password" required={true} value={this.state.password} onChange={this.handleChange}/> <br/>
-          {/* <input type="submit" value="Submit"/> */}
           <Button
             variant="contained" 
             color="primary" 
@@ -39,6 +47,7 @@ class SignIn extends React.Component {
             type="submit" >
             Sign In
           </Button> &nbsp;
+          {/*****
           <Button
             variant="contained" 
             color="primary" 
@@ -46,10 +55,11 @@ class SignIn extends React.Component {
             onClick={signInWithGoogle} >
             Sign In with Google
           </Button>
+          ******/}
         </form>
       </Box>
     );
   }
 }
  
-export default SignIn;
+export default withRouter(SignIn);

@@ -1,6 +1,8 @@
 import React from 'react'
 import './signup.styles.scss';
 import {Button, Box} from '@material-ui/core';
+import {auth, createUserProfileDocument} from '../../../utils/firebase.util';
+import {withRouter} from 'react-router-dom';
 
 class SignUp extends React.Component {
   state = {
@@ -17,12 +19,32 @@ class SignUp extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    this.setState({
-      displayName:'',
-      email:'',
-      password:'',
-      confirmPassword:'',
-    });
+    const { displayName, email, password, confirmPassword } = this.state;
+    //validate password
+    if (password !== confirmPassword) {
+      alert("passwords don't match");
+      return;
+    }    
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfileDocument(user, { displayName });
+
+      this.setState({
+        displayName:'',
+        email:'',
+        password:'',
+        confirmPassword:'',
+      });
+      this.props.history.push("/main");
+    }catch(error){
+      //console.log(error.message);
+      alert(error.message);
+    }
   }
 
   render() { 
@@ -51,4 +73,4 @@ class SignUp extends React.Component {
   }
 }
  
-export default SignUp;
+export default withRouter(SignUp);

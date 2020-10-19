@@ -5,9 +5,9 @@ import {auth} from '../../utils/firebase.util'
 //import Tab from '@material-ui/core/Tab';
 
 const Header = ({currentUser}) => {
-  
+
   var loginButton, mainButton;
-  console.log(currentUser);
+  //console.log(currentUser);
   if (currentUser != null) {
     mainButton = <Link className="option" to='/main'>Home</Link>;
     loginButton = <Link className="option" to='/' onClick={()=>{auth.signOut()}}>Log Out</Link>;
