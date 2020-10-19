@@ -1,6 +1,6 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom';
-import firebase from '../../utils/firebase.util';
+import {auth} from '../../utils/firebase.util';
 import LoadingOverlay from 'react-loading-overlay';
 
 class ValidationAuth extends React.Component {
@@ -16,7 +16,7 @@ class ValidationAuth extends React.Component {
     this._isMounted = true;
 
     //ログインしてるかどうかチェック
-    firebase.auth().onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       if (user) {
           //してる
           if (this._isMounted) {

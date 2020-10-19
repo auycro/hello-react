@@ -2,7 +2,7 @@ import React from 'react';
 import './signin.styles.scss';
 //import {signInWithGoogle} from '../../../utils/firebase.util';
 import {Button, Box} from '@material-ui/core';
-import firebase from 'firebase';
+import {auth} from '../../../utils/firebase.util';
 import {withRouter} from 'react-router-dom';
 
 class SignIn extends React.Component {
@@ -20,7 +20,7 @@ class SignIn extends React.Component {
     event.preventDefault();
     const {email, password} = this.state;
     try{
-      await firebase.auth().signInWithEmailAndPassword(email,password);
+      await auth.signInWithEmailAndPassword(email,password);
       this.setState({
         email:'',
         password:''
